@@ -10,6 +10,7 @@
 #
 # Based on code from Rae Harbird
 #
+
 from person import Person
 from project import Project
 
@@ -18,6 +19,7 @@ def main():
     MENU_CHOICES = ['A', 'C', 'V', 'S', 'Q']
 
     def print_menu():
+        """ Prints the menu for the application """
         menu_string = ("\nWelcome to Spliddit:\n\n"
                       "\tAbout\t\t(A)\n"
                       "\tCreate Project\t(C)\n"
@@ -151,14 +153,8 @@ def create_project():
     project_members = get_member_names(team_size)
     project = Project(project_name, team_size, project_members)
     projects_dict[project.name] = project
-    print(project)
-    print(projects_dict)
 
 def enter_votes():
-
-    ## Constants
-    MIN_VOTE = 0
-    MAX_VOTE = 100
 
     def pick_project():
         """ Lets the user pick a project to be voted on from the projects
@@ -174,39 +170,44 @@ def enter_votes():
         existing_projects = [i for i in projects_dict]
 
         while pick_project not in existing_projects:
+            """ Displays projects that have already been created (and therefore
+                accessible for voting) to allow user convenience.
+            """
             print("\n\tPlease choose from the following projects: ", end="")
             print(*existing_projects, sep=', ')
             pick_project = input("\n\tEnter the project name (case sensitive): ")
         return projects_dict[pick_project]
 
     def cast_vote(project):
-
-        proj_members = projects_dict[key].members
-        print(proj_members)
-        # print('\tThere are {} members.\n'.format(len(proj_members)))
-        # for member in proj_members:
-        #     print("\nEnter " + member.name + "'s votes, points must add up to 100.")
-        #     member_votes(member, proj_members)
+        """ cast_vote() goes through each member in a Project and prompts
+            votes. It is used in conjunction with member_votes() and
+            get_vote_value()
+        """
+        proj_members = project.members
+        print('\n\tThere are {} members.'.format(len(proj_members)))
+        for member in proj_members:
+            print("\nEnter " + member.name + "'s votes, points must add up to 100.")
+            member_votes(member, proj_members)
 
     def member_votes(voter, proj_members):
         summa = 0
-        while summa != int(MAX_VOTE):
+        while summa != int(Person.MAX_VOTE):
             print()
             for member in proj_members:
                 if member != voter:
-                    vote_value = self.get_vote_value(voter.name, member.name)
+                    vote_value = get_vote_value(voter.name, member.name)
                     voter.vote_for(member.name, vote_value)
                     summa += int(vote_value)
-            if summa != int(MAX_VOTE):
+            if summa != int(Person.MAX_VOTE):
                 print(('\tPoints must add up to {}. Please try again.')
-                        .format(MAX_VOTE))
+                        .format(Person.MAX_VOTE))
                 summa = 0
 
     def get_vote_value(voter, votee):
         vote_value = input('\tEnter ' + voter + "'s vote for " + votee + ': ')
-        while Person.is_valid_vote(vote_value) is not True:
+        while not Person.is_valid_vote(vote_value):
             print(("\n\tYour vote must be an integer between {} and {}. "
-                   "Try again.").format(MIN_VOTE, MAX_VOTE))
+                   "Try again.").format(Person.MIN_VOTE, Person.MAX_VOTE))
             vote_value = input("\tEnter " + voter + "'s vote for " + votee + ': ')
         return int(vote_value)
 
@@ -216,14 +217,25 @@ def enter_votes():
 
 
 def show_projects():
-    """ Show_projects will be implemented in final deliverable. Show_projects
-    displays a message notifying user that this feature is not yet
-    available.
+    """ Show_projects will be fully  implemented in final deliverable.
+    Show_projects displays a message notifying user that this feature is not
+    yet available.
     """
-    show_projects_string = ("\nShow Projects feature is not fully implemented "
-                            "yet, as of Deliverable 2. For now, it will print "
-                            "a dictionary containing created projects.\n\n")
-    print(show_projects_string + str(projects_dict))
+    show_projects_string = ("\nShow Projects feature is not yet implemented "
+                            "as of Deliverable 2.\n\n")
+    print(show_projects_string)
+
+    """
+    The following section of code is a provisional attempt at displaying
+    projects. It displays projects in a dictionary form. As deliverable 2 does
+    not require a Show Projects feature, it does not need to be accessible.
+    """
+    # show_projects_string = ("\nShow Projects feature is currently in "
+    #                         "development and is not fully implemented yet "
+    #                         "as of Deliverable 2.\nFor now, it will print "
+    #                         "a dictionary containing created projects and "
+    #                         "corresponding votes.\n\n")
+    # print(show_projects_string + str(projects_dict))
 
 # Start the program
 if __name__ == "__main__":

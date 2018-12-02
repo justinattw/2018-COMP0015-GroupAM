@@ -10,16 +10,16 @@ class Project:
     MAX_TEAM_SIZE = 5
 
     def __init__(self, project_name, project_size, project_members):
-        self.name = project_name
-        self.size = project_size
-        self.members = project_members
+        self._name = project_name
+        self._size = project_size
+        self._members = project_members
 
     def __str__(self):
         return "Name: " + self.name + "\nSize: " + str(self.size) + "\nMembers: " \
                 + str(self.members)
 
     def __repr__(self):
-        return '{Project Name: ' + self.name + ', Size: ' + str(self.size) + \
+        return '\n{Project Name: ' + self.name + ', Size: ' + str(self.size) + \
                  ', Members: ' + str(self.members) + '}'
 
 
@@ -27,13 +27,13 @@ class Project:
     def name(self):
         return self._name
 
-    @name.setter
-    def name(self, project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
-        if self.is_valid_project_name(project_name) == False:
-            raise ValueError(("Project name must be between {} and {} "
-                              "characters long.")
-                              .format(str(minimum), str(maximum)))
-        self._name = project_name
+    # @name.setter
+    # def name(self, project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
+    #     if self.is_valid_project_name(project_name) == False:
+    #         raise ValueError(("Project name must be between {} and {} "
+    #                           "characters long.")
+    #                           .format(str(minimum), str(maximum)))
+    #     self._name = project_name
 
     def is_valid_project_name(project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
         """
@@ -84,11 +84,11 @@ class Project:
         if len(project_members) == self.size:
             self._members = project_members
 
-    # def get_name(self):
-    #     return self.name
-    #
-    # def get_size(self):
-    #     return self.size
-    #
-    # def get_members(self):
-    #     return self.members
+    def get_name(self):
+        return self.name
+
+    def get_size(self):
+        return self.size
+
+    def get_members(self):
+        return self.members

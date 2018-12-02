@@ -17,7 +17,7 @@ class Person:
         return 'Name: ' + self.name + '\nVotes: ' + str(self.votes)
 
     def __repr__(self):
-        return 'Name: ' + self.name + ', Votes: ' + str(self.votes)
+        return '\nMember name: ' + self.name + ',\tVotes: ' + str(self.votes)
 
     @property
     def name(self):
@@ -54,18 +54,16 @@ class Person:
     def votes(self, votes):
         self._votes = votes
 
-    def is_valid_vote(self, vote, minimum=MIN_VOTE, maximum=MAX_VOTE):
+    def is_valid_vote(vote, minimum=MIN_VOTE, maximum=MAX_VOTE):
         """ Checks if the vote is an integer and falls betwen the minimum and maximum.
         Minimum is 0 and maximum is 100 by default.
 
         @return boolean value
         """
-        if not points.isInteger():
-            raise TypeError('Vote must be an integer')
-        if minimum <= int(points) <= maximum:
-            raise ValueError(('Vote must be between {} and {}').format(self.MIN_VOTE, self.MAX_VOTE))
-        else:
-            return True
+        try:
+            return minimum <= int(vote) <= maximum
+        except ValueError:
+            return False
 
     def vote_for(self, voter_name, vote_value):
         self._votes[voter_name] = vote_value
