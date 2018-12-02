@@ -2,7 +2,7 @@
 
 This is the Git repository for Group AM, team members Antonin Kanat and Justin Wong.
 
-In this repository, you will find three modules (person, project, deliverable2) defining two classes (Person, Project).
+
 
 deliverable2.py will run the main program.
 
