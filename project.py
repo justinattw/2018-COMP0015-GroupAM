@@ -1,7 +1,7 @@
 class Project:
 
-    """
-    Constants used to validate project name and team sizes
+    """ Constants used to validate inputs in main program, including
+        project_name and allowed team size.
     """
     MIN_NAME_LENGTH = 3
     MAX_NAME_LENGTH = 15
@@ -22,12 +22,15 @@ class Project:
         return '\n{Project Name: ' + self.name + ', Size: ' + str(self.size) + \
                  ', Members: ' + str(self.members) + '}'
 
-
     @property
     def name(self):
         return self._name
 
+
     # @name.setter
+    """ @name.setter is not used because validations are ran in the
+        main program, therefore setters are redundant and bypassed
+    """
     # def name(self, project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
     #     if self.is_valid_project_name(project_name) == False:
     #         raise ValueError(("Project name must be between {} and {} "
@@ -37,12 +40,14 @@ class Project:
 
     def is_valid_project_name(project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
         """
-        Check the string contains the allowable length. We allow non-alphabetical characters
+        Check the string contains the allowable length. We allow
+        non-alphabetical characters
 
         :param project_name: the string to be validated
         :param minimum: the minimum length of project_name
         :param maximum: the maximum length of project_name
-        :returns: True if the string conforms to the conditions and False if it does not.
+        :returns: True if the string conforms to the conditions and
+                  False if it does not.
         """
         return minimum <= len(project_name.strip()) <= maximum
 
@@ -58,8 +63,9 @@ class Project:
         self._size = project_size
 
     def is_valid_team_size(team_size, minimum=MIN_TEAM_SIZE, maximum=MAX_TEAM_SIZE):
-        """ Checks whether the team size is greater than or equal to the minimum size
-        and less than or equal to the maximum size.
+        """ Checks whether the team size is within allowable size of
+            MIN_TEAM_SIZE and MAX_TEAM_SIZE, which are set at the
+            start.
 
         :param team_size: the team size we are checking against
         :param minimum: minimum team size allowed

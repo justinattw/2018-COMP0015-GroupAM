@@ -5,8 +5,8 @@
 # course: COMP0015
 # date: 02/12/18
 # names: Antonin Kanat & Justin Wong
-# description: the second deliverable of the Fair Grade Allocator, containing a
-# main menu, create project and enter votes feature
+# description: the second deliverable of the Fair Grade Allocator, containing
+# a main menu, create project and enter votes feature
 #
 # Based on code from Rae Harbird
 #
@@ -71,22 +71,25 @@ def about() :
 projects_dict = {}
 
 def create_project():
-    """ Sets up a project from the information entered by the user.
+    """ Creates a project from the information entered by the user.
 
-    :returns: a dictionary containing the project name, team size, names
-              of team members and their votes (which are initialised to {})
+    First defines functions required for create_project() in chronological
+    order (for convenient readability), then it runs the defined functions.
+
+    @returns a dictionary containing the project name, team size, names
+        of team members and their votes (which are initialised to {})
     """
     def get_project_name():
         """Prompts the user for a project name and validates it.
         Invariants: a project name must be between the minimum and
                     maximum length and cannot be blank. We allow the name to
                     contain any character type,
-        :returns: a string containing the project name.
+        @returns a string containing the project name.
         """
         project_name = input("\n\tEnter project name: ")
         while Project.is_valid_project_name(project_name) is not True:
-            print(("\n\t\tThe project name must be between {} and {} characters"
-                   ". Please try again.")
+            print(("\n\t\tThe project name must be between {} and {} "
+                   "characters . Please try again.")
                    .format(Project.MIN_NAME_LENGTH, Project.MAX_NAME_LENGTH))
             project_name = input("\n\tEnter project name: ")
         return project_name
@@ -95,7 +98,7 @@ def create_project():
         """ Prompts the user for the team size and validates it.
         Invariants: the team size must be between the minimum and maximum size.
 
-        :returns: the number of people in the team.
+        @returns the number of people in the team.
         """
         team_size = input("\n\tEnter the number of team members: ")
         while Project.is_valid_team_size(team_size) is not True:
@@ -146,8 +149,6 @@ def create_project():
                                 .format(i+1))
         return person_name
 
-
-    ## We call upon the functions defined to carry out create_project
     project_name = get_project_name()
     team_size = get_team_size()
     project_members = get_member_names(team_size)
@@ -155,12 +156,17 @@ def create_project():
     projects_dict[project.name] = project
 
 def enter_votes():
+    """ Enables users to enter votes for members in previously created projects
+
+    First defines all functions required for enter_votes() in chronological
+    order (for convenient readability), then it runs the defined functions.
+    """
 
     def pick_project():
-        """ Lets the user pick a project to be voted on from the projects
-            dictionary.
+        """ Lets the user pick a project from the projects dictionary to
+            access and enter votes on.
 
-        :returns: a Project object
+        @returns a Project object
         """
         if not projects_dict:
             print('\n\tPlease create a project first.')
@@ -170,8 +176,8 @@ def enter_votes():
         existing_projects = [i for i in projects_dict]
 
         while pick_project not in existing_projects:
-            """ Displays projects that have already been created (and therefore
-                accessible for voting) to allow user convenience.
+            """ Displays projects that have already been created to give user
+                a list of options to choose from.
             """
             print("\n\tPlease choose from the following projects: ", end="")
             print(*existing_projects, sep=', ')
@@ -179,17 +185,24 @@ def enter_votes():
         return projects_dict[pick_project]
 
     def cast_vote(project):
-        """ cast_vote() goes through each member in a Project and prompts
+        """ Goes through each member in a Project and prompts
             votes. It is used in conjunction with member_votes() and
             get_vote_value()
         """
         proj_members = project.members
         print('\n\tThere are {} members.'.format(len(proj_members)))
         for member in proj_members:
-            print("\nEnter " + member.name + "'s votes, points must add up to 100.")
+            print("\nEnter " + member.name + "'s votes, points must add up to"
+                   " 100.")
             member_votes(member, proj_members)
 
     def member_votes(voter, proj_members):
+        """ Counts and sums the total vote score given by a voter. It ensures
+            that the given scores do not exceed the maximum total allowed.
+
+        Invariants: summa counts the total number of points given. It
+                    initialises and re-initialises to 0.
+        """
         summa = 0
         while summa != int(Person.MAX_VOTE):
             print()
@@ -204,11 +217,16 @@ def enter_votes():
                 summa = 0
 
     def get_vote_value(voter, votee):
+        """ Gets vote scores from voters, assigning them to each member.
+
+        @returns the votes given from a member assigned to another member.
+        """
         vote_value = input('\tEnter ' + voter + "'s vote for " + votee + ': ')
         while not Person.is_valid_vote(vote_value):
             print(("\n\tYour vote must be an integer between {} and {}. "
                    "Try again.").format(Person.MIN_VOTE, Person.MAX_VOTE))
-            vote_value = input("\tEnter " + voter + "'s vote for " + votee + ': ')
+            vote_value = input(("\tEnter " + voter + "'s vote for " + votee
+                                + ': '))
         return int(vote_value)
 
     project = pick_project()
@@ -226,14 +244,12 @@ def show_projects():
     print(show_projects_string)
 
     """
-    The following section of code is a provisional attempt at displaying
+    The following body of code is a provisional attempt at displaying
     projects. It displays projects in a dictionary form. As deliverable 2 does
-    not require a Show Projects feature, it does not need to be accessible.
+    not require a Show Projects feature, we have excluded it from the program.
     """
-    # show_projects_string = ("\nShow Projects feature is currently in "
-    #                         "development and is not fully implemented yet "
-    #                         "as of Deliverable 2.\nFor now, it will print "
-    #                         "a dictionary containing created projects and "
+    # show_projects_string = ("For now, show_projects will print a "
+    #                         "dictionary containing created projects and "
     #                         "corresponding votes.\n\n")
     # print(show_projects_string + str(projects_dict))
 

@@ -1,7 +1,7 @@
 class Person:
 
-    """
-    Constants
+    """ Constants used to validate inputs in main program, including
+        person_name and vote values.
     """
     MIN_NAME_LENGTH = 3
     MAX_NAME_LENGTH = 15
@@ -55,15 +55,39 @@ class Person:
         self._votes = votes
 
     def is_valid_vote(vote, minimum=MIN_VOTE, maximum=MAX_VOTE):
-        """ Checks if the vote is an integer and falls betwen the minimum and maximum.
-        Minimum is 0 and maximum is 100 by default.
+        """ Checks if the vote is an integer and falls betwen the
+            minimum and maximum.
+            Minimum and maximum are constants set at the start
+            of this module.
+
+        @return boolean value
+        """
+        # if not Person.is_integer(vote):
+        #     raise TypeError ('Vote must be an integer')
+        #     return False
+        # if not minimum <= int(vote) <= maximum:
+        #     raise ValueError(('Vote must be between {} and {}')
+        #                       .format(minimum, maximum))
+        #     return False
+
+        return Person.is_integer(vote) and minimum <= int(vote) <= maximum
+
+    def is_integer(number):
+        """ Checks if an input is an is_integer
 
         @return boolean value
         """
         try:
-            return minimum <= int(vote) <= maximum
+            int(number)
+            return True
         except ValueError:
             return False
 
     def vote_for(self, voter_name, vote_value):
         self._votes[voter_name] = vote_value
+
+    def get_name(self):
+        return self.name
+
+    def get_votes(self):
+        return self.votes
