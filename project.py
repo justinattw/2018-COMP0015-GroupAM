@@ -21,9 +21,9 @@ class Project:
     MAX_TEAM_SIZE = 5
 
     def __init__(self, project_name, project_size, project_members):
-        self._name = project_name
-        self._size = project_size
-        self._members = project_members
+        self.name = project_name
+        self.size = project_size
+        self.members = project_members
 
     def __str__(self):
         return "Name: " + self.name + "\nSize: " + str(self.size) \
@@ -37,16 +37,16 @@ class Project:
     def name(self):
         return self._name
 
-    # @name.setter
-    """ @name.setter is not used because validations are ran in the
-        main program, therefore setters are redundant and bypassed
+    """ @name.setter sets name to inputs from create_project() from main
+        program 'deliverable2.py'
     """
-    # def name(self, project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
-    #     if self.is_valid_project_name(project_name) == False:
-    #         raise ValueError(("Project name must be between {} and {} "
-    #                           "characters long.")
-    #                           .format(str(minimum), str(maximum)))
-    #     self._name = project_name
+    @name.setter
+    def name(self, project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
+        # if self.is_valid_project_name(project_name) == False:
+        #     raise ValueError(("Project name must be between {} and {} "
+        #                       "characters long.")
+        #                       .format(str(minimum), str(maximum)))
+        self._name = project_name
 
     def is_valid_project_name(project_name, minimum=MIN_NAME_LENGTH, maximum=MAX_NAME_LENGTH):
         """
@@ -65,15 +65,15 @@ class Project:
     def size(self):
         return self._size
 
-    # @size.setter
-    """ @size.setter is not used because validations are ran in the
-        main program, therefore setters are redundant and bypassed
+    """ @size.setter sets team_size to inputs from create_project() from main
+        program 'deliverable2.py'
     """
-    # def size(self, project_size, minimum=MIN_TEAM_SIZE, maximum=MAX_TEAM_SIZE):
-    #     if not self.is_valid_team_size(project_size):
-    #         raise ValueError (("Team size must be between {} and {}")
-    #                            .format(str(minimum), str(maximum)))
-    #     self._size = project_size
+    @size.setter
+    def size(self, project_size): # minimum=MIN_TEAM_SIZE, maximum=MAX_TEAM_SIZE):
+        # if not self.is_valid_team_size(project_size):
+        #     raise ValueError (("Team size must be between {} and {}")
+        #                        .format(str(minimum), str(maximum)))
+        self._size = project_size
 
     def is_valid_team_size(team_size, minimum=MIN_TEAM_SIZE, maximum=MAX_TEAM_SIZE):
         """ Checks whether the team size is within allowable size of

@@ -25,7 +25,7 @@ class Person:
         self.votes = votes
 
     def __str__(self):
-        return 'Name: ' + self.name + '\nVotes: ' + str(self.votes)
+        return self.name
 
     def __repr__(self):
         return '\nMember name: ' + self.name + ',\tVotes: ' + str(self.votes)
@@ -65,7 +65,6 @@ class Person:
     def votes(self, votes):
         self._votes = votes
 
-
     def is_valid_vote(vote, minimum=MIN_VOTE, maximum=MAX_VOTE):
         """ Checks if the vote is an integer and falls betwen the
             minimum and maximum.
@@ -97,6 +96,9 @@ class Person:
 
     def vote_for(self, voter_name, vote_value):
         self._votes[voter_name] = vote_value
+
+    def add_vote(self, member, vote):
+        self._votes[member] = vote
 
     def get_name(self):
         return self.name

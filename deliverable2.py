@@ -14,6 +14,11 @@
 from person import Person
 from project import Project
 
+""" Initialising dictionary which stores information on all projects. This
+    is added to through create_project(), and manipulated through enter_votes()
+"""
+projects_dict = {}
+
 def main():
 
     MENU_CHOICES = ['A', 'C', 'V', 'S', 'Q']
@@ -56,7 +61,7 @@ def main():
             enter_votes()
         elif option == 'S':
             show_projects()
-    print("\n\nThis program has ended, good-bye.")
+    print("\n\nThis program has ended, thank you for using Spliddit.")
 
 def about() :
     about_string = ("\n\nWelcome to Spliddit. "
@@ -66,11 +71,6 @@ def about() :
                    "Based on code by Rae Harbird."
                    "\n\n2018 UCL Antonin Kanat & Justin Wong")
     print(about_string)
-
-""" Initialising dictionary which stores information on all projects. This
-    is added to through create_project(), and manipulated through enter_votes()
-"""
-projects_dict = {}
 
 def create_project():
     """ Creates a project from the information entered by the user.
@@ -154,7 +154,7 @@ def create_project():
     team_size = get_team_size()
     project_members = get_member_names(team_size)
     project = Project(project_name, team_size, project_members)
-    projects_dict[project.name] = project
+    projects_dict[project.name] = project # stores Project object in dict
 
 def enter_votes():
     """ Enables users to enter votes for members in previously created projects
@@ -192,30 +192,25 @@ def enter_votes():
         """
         proj_members = project.members
         print('\n\tThere are {} members.'.format(len(proj_members)))
-        for member in proj_members:
-            print("\nEnter " + member.name + "'s votes, points must add up to"
-                   " 100.")
-            member_votes(member, proj_members)
+        for member in range(len(proj_members)):
+            voter = proj_members[member]
+            print(("\nEnter {}'s votes, points must add up to 100")
+                    .format(voter.name))
+            vote_dict = {}
+            summa = 0
+            while summa != int(Person.MAX_VOTE):
+                print()
+                for votee in proj_members:
+                    if votee != voter:
+                        vote_value = get_vote_value(voter.name, votee.name)
+                        vote_dict[str(votee)] = vote_value
+                        summa += int(vote_value)
+                if summa != int(Person.MAX_VOTE):
+                    print(('\tVotes must add up to {}. Please try again.')
+                            .format(Person.MAX_VOTE))
+                    summa = 0
 
-    def member_votes(voter, proj_members):
-        """ Counts and sums the total vote score given by a voter. It ensures
-            that the given scores do not exceed the maximum total allowed.
-
-        Invariants: summa counts the total number of points given. It
-                    initialises and re-initialises to 0.
-        """
-        summa = 0
-        while summa != int(Person.MAX_VOTE):
-            print()
-            for member in proj_members:
-                if member != voter:
-                    vote_value = get_vote_value(voter.name, member.name)
-                    voter.vote_for(member.name, vote_value)
-                    summa += int(vote_value)
-            if summa != int(Person.MAX_VOTE):
-                print(('\tPoints must add up to {}. Please try again.')
-                        .format(Person.MAX_VOTE))
-                summa = 0
+                voter.votes = vote_dict # writes votes to Person objects
 
     def get_vote_value(voter, votee):
         """ Gets vote scores from voters, assigning them to each member.
@@ -241,18 +236,17 @@ def show_projects():
     yet available.
     """
     show_projects_string = ("\nShow Projects feature is not yet implemented "
-                            "as of Deliverable 2.\n\n")
+                            "as of Deliverable 2.\n")
     print(show_projects_string)
 
     """
     The following body of code is a provisional attempt at displaying
-    projects. It displays projects in a dictionary form. As deliverable 2 does
-    not require a Show Projects feature, we have excluded it from the program.
+    projects. It displays projects in a dictionary form.
     """
-    # show_projects_string = ("For now, show_projects will print a "
-    #                         "dictionary containing created projects and "
-    #                         "corresponding votes.\n\n")
-    # print(show_projects_string + str(projects_dict))
+    show_projects_string = ("For now, show_projects will print a "
+                            "dictionary containing created projects and "
+                            "corresponding votes.\n\n")
+    print(show_projects_string + str(projects_dict))
 
 # Start the program
 if __name__ == "__main__":
