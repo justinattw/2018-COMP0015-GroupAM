@@ -37,7 +37,7 @@ def main():
             return False
 
     def get_option():
-        option = ''
+        option = '*'
 
         while not is_valid_option(option):
             print_menu()
@@ -67,7 +67,9 @@ def about() :
                    "\n\n2018 UCL Antonin Kanat & Justin Wong")
     print(about_string)
 
-##  Initialising dictionary which stores information on all projects
+""" Initialising dictionary which stores information on all projects. This
+    is added to through create_project(), and manipulated through enter_votes()
+"""
 projects_dict = {}
 
 def create_project():
@@ -122,7 +124,6 @@ def create_project():
             if team_name not in team_names:
                 team_names.append(team_name)
                 person = Person(team_name)
-                print(person)
                 project_members.append(person)
                 i += 1
             else:
@@ -138,14 +139,14 @@ def create_project():
         Invariants: a person's name must be between the minimum and maximum
         length and cannot be blank. It may only contain alphabetical characters
         """
-        person_name = input(("\n\tEnter the name of team member {}: ")
+        person_name = input(("\n\t\tEnter the name of team member {}: ")
                             .format(i+1))
 
         while not Person.is_valid_person_name(person_name):
             print(("\n\t\tThe name must be between {} and {} characters long "
                    "and may contain only alphabetical characters.")
                    .format(Person.MIN_NAME_LENGTH, Person.MAX_NAME_LENGTH))
-            person_name = input(("\n\tEnter the name of team member {}: ")
+            person_name = input(("\n\t\tEnter the name of team member {}: ")
                                 .format(i+1))
         return person_name
 

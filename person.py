@@ -1,3 +1,14 @@
+#! python3
+# name: person.py
+#
+#
+# course: COMP0015
+# date: 02/12/18
+# names: Antonin Kanat & Justin Wong
+# description:  a module containing the Person class which may be imported
+#               into the main program 'deliverable2.py'
+#
+
 class Person:
 
     """ Constants used to validate inputs in main program, including
@@ -53,6 +64,7 @@ class Person:
     @votes.setter
     def votes(self, votes):
         self._votes = votes
+
 
     def is_valid_vote(vote, minimum=MIN_VOTE, maximum=MAX_VOTE):
         """ Checks if the vote is an integer and falls betwen the

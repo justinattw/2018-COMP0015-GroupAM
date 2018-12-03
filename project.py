@@ -1,3 +1,14 @@
+#! python3
+# name: project.py
+#
+#
+# course: COMP0015
+# date: 02/12/18
+# names: Antonin Kanat & Justin Wong
+# description:  a module containing the Project class which may be imported
+#               into the main program 'deliverable2.py'
+#
+
 class Project:
 
     """ Constants used to validate inputs in main program, including
@@ -15,17 +26,16 @@ class Project:
         self._members = project_members
 
     def __str__(self):
-        return "Name: " + self.name + "\nSize: " + str(self.size) + "\nMembers: " \
-                + str(self.members)
+        return "Name: " + self.name + "\nSize: " + str(self.size) \
+                + "\nMembers: " + str(self.members)
 
     def __repr__(self):
-        return '\n{Project Name: ' + self.name + ', Size: ' + str(self.size) + \
-                 ', Members: ' + str(self.members) + '}'
+        return '\n{Project Name: ' + self.name + ', Size: ' + str(self.size) \
+                + ', Members: ' + str(self.members) + '}'
 
     @property
     def name(self):
         return self._name
-
 
     # @name.setter
     """ @name.setter is not used because validations are ran in the
@@ -55,12 +65,15 @@ class Project:
     def size(self):
         return self._size
 
-    @size.setter
-    def size(self, project_size, minimum=MIN_TEAM_SIZE, maximum=MAX_TEAM_SIZE):
-        if not self.is_valid_team_size(project_size):
-            raise ValueError (("Team size must be between {} and {}")
-                               .format(str(minimum), str(maximum)))
-        self._size = project_size
+    # @size.setter
+    """ @size.setter is not used because validations are ran in the
+        main program, therefore setters are redundant and bypassed
+    """
+    # def size(self, project_size, minimum=MIN_TEAM_SIZE, maximum=MAX_TEAM_SIZE):
+    #     if not self.is_valid_team_size(project_size):
+    #         raise ValueError (("Team size must be between {} and {}")
+    #                            .format(str(minimum), str(maximum)))
+    #     self._size = project_size
 
     def is_valid_team_size(team_size, minimum=MIN_TEAM_SIZE, maximum=MAX_TEAM_SIZE):
         """ Checks whether the team size is within allowable size of
