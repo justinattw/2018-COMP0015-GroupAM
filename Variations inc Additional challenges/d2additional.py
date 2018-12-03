@@ -1,12 +1,17 @@
 #! python3
-# name: deliverable2.py
+# name: d2additional.py
 #
 #
 # course: COMP0015
 # date: 02/12/18
 # names: Antonin Kanat & Justin Wong
 # description:  the second deliverable of the Fair Grade Allocator, containing
-#               a main menu, create project and enter votes feature
+#               a main menu, create project and enter votes feature.
+#
+# additional:   The additional feature carried out in this .py file is working
+#               to verify whether a Project has already been created in
+#               create_project(), and if so, it prompts the user whether to
+#               overwrite this Project object or not.
 #
 # Based on code from Rae Harbird
 #
@@ -18,6 +23,7 @@ from project import Project
     is added to through create_project(), and manipulated through enter_votes()
 """
 projects_dict = {}
+yn_options = ['Y', 'N']
 
 def main():
 
@@ -76,10 +82,17 @@ def create_project():
     """ Creates a project from the information entered by the user.
 
     First defines functions required for create_project() in chronological
-    order (for convenient readability), then it runs the defined functions.
+    order (for convenient readability), then it uses create_project_run() to
+    run all defined functions in order.
 
-    @returns a dictionary containing the project name, team size, names
-        of team members and their votes (which are initialised to {})
+    ADDITIONAL CHALLENGE:
+    Create_project() also has a feature that prevents overwriting created
+    projects. It notifies the user if they are attempting to create a project
+    that has already been created, and prompts the user to overwrite or leave
+    the create_project option.
+
+    @returns a dictionary containing the project name, team size, names of
+        team members and their votes (which are initialised to {} here)
     """
     def get_project_name():
         """Prompts the user for a project name and validates it.
@@ -150,11 +163,56 @@ def create_project():
                                 .format(i+1))
         return person_name
 
+    def create_project_run():
+        """ Runs functions in order for user to create projectself.
+
+        @returns dictionary containing project name, team size, names of team
+            members and their votes (which are initialised to {} here)
+        """
+        team_size = get_team_size()
+        project_members = get_member_names(team_size)
+        project = Project(project_name, team_size, project_members)
+        projects_dict[project.name] = project
+        existing_projects = [i for i in projects_dict]
+
+    """ Starts off by prompting for project name. It checks if user input
+        project name has already been created by refencing projects_dict.
+
+        If it hasn't, the program will go to create_project_run to create a
+        project.
+
+        If it has, the program will prompt the user to overwrite the created
+        project, or to ignore and return to main menu.
+    """
     project_name = get_project_name()
-    team_size = get_team_size()
-    project_members = get_member_names(team_size)
-    project = Project(project_name, team_size, project_members)
-    projects_dict[project.name] = project # stores Project object in dict
+    existing_projects = [i for i in projects_dict]
+
+    if project_name not in existing_projects:
+        create_project_run()
+    else:
+        def is_valid_yn_option(option):
+            if len(option.strip()) == 0:
+                return False
+            elif option[0].upper() in yn_options:
+                return True
+            else:
+                return False
+
+        def get_yn_option():
+            option = '*'
+            while not is_valid_yn_option(option):
+                option = input(("\n\t{} has already been created. Would you "
+                                "like to overwrite it?\n\n\tEnter option\t"
+                                "(y/n): ")
+                                .format(project_name))
+            return option.upper()
+
+        option = '*'
+        while option != 'N':
+            option = get_yn_option()
+            if option == 'Y':
+                create_project_run()
+                break
 
 def enter_votes():
     """ Enables users to enter votes for members in previously created projects
