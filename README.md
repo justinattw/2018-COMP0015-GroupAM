@@ -7,7 +7,7 @@ deliverable2.py will run the main program.
 This repository also includes two unit test files (person_test, project_test) that we have used to carry out unit testing throughout the development of this program.
 
 
-# COMP0015 Deliverable 2 – 1 page report 
+# COMP0015 Deliverable 2 – 1 page report
 by Antonin Kanat and Justin Wong
 
 Instructions
@@ -26,14 +26,14 @@ For Deliverable 2, files are split into 3 primary files:
 Two further test files for Person and Project classes are included, denoted by file name beginning ‘test_’.
 
 Additional challenges
-Github: We started a Github repository to make collaboration easier, as both members can commit and pull files to work collaboratively virtually. We worked in separate branches and at certain intervals merged files to the master branch. We used Atom IDE as GitHub is implemented within Atom.
+GitHub: We started a GitHub repository to make collaboration easier, as both members can commit and pull files to work collaboratively virtually. We worked in separate branches and at certain intervals merged files to the master branch. We used Atom IDE as GitHub is implemented within Atom.
 
 Unit tests: We conducted unit tests on the modules ‘person.py’ and ‘project.py’ in order to ensure that class attribute inputs and validation methods were functioning as intended.
 
-Edit votes: Currently, users may overwrite their vote entries by simply 
+Edit projects and votes: We also implemented a feature that checks if projects have already been created in ‘Create projects’, and if votes have already been assigned in ‘Enter votes’. If a user tries to access existing projects, prompts will appear in the program asking the user if they wish to overwrite project or edit the assigned votes.
 
 Testing
-We test the program by running it personally and inputting unexpected and strange inputs to see how the program would handle. We also conduct unit tests on module files to ensure that inputs are handled by the program in an expected manner.
+We test the program by running it personally and inputting strange inputs to try to break the code. We also conduct unit tests on module files to ensure that inputs are handled by the program in an expected manner.
 
 Contribution mark
 Antonín: 10		Justin: 10
