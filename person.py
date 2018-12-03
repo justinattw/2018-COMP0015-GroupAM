@@ -94,12 +94,6 @@ class Person:
         except ValueError:
             return False
 
-    def vote_for(self, voter_name, vote_value):
-        self._votes[voter_name] = vote_value
-
-    def add_vote(self, member, vote):
-        self._votes[member] = vote
-
     def get_name(self):
         return self.name
 
