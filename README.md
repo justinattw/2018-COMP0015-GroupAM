@@ -1,6 +1,6 @@
 # 2018-COMP0015-GroupAM
 
-This is the Git repository for Group AM, team members Antonin Kanat and Justin Wong.
+This is the Git repository for Group AM, team members Antonin Kanat and Justin Wong. The project is creating a terminal-based program called Spliddit, which will be able to allocate marks assigned by members on team projects fairly.
 
 deliverable2.py will run the main program.
 
